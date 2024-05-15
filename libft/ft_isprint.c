@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfelguei <tfelguei@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tfelguei <tfelguei.students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:19:40 by tfelguei          #+#    #+#             */
-/*   Updated: 2024/04/17 14:19:42 by tfelguei         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:15:25 by tfelguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-int		ft_isprint(int c)
+int	ft_isprint(int c)
 {
 	if (c >= 32 && c <= 126)
 		return (1);

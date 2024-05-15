@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfelguei <tfelguei@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tfelguei <tfelguei@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 19:31:13 by tfelguei          #+#    #+#             */
-/*   Updated: 2024/04/17 14:20:24 by tfelguei         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:15:48 by tfelguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_iscntrl(int c)
+#include "libft.h"
+
+int	ft_isalpha(int c)
 {
-	if ((c >= 0 && c <= 31) || c == 127)
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
 	return (0);
 }
