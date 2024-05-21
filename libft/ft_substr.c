@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfelguei <tfelguei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfelguei <tfelguei.students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:51:21 by tfelguei          #+#    #+#             */
-/*   Updated: 2024/05/09 17:48:22 by tfelguei         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:29:37 by tfelguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,29 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*new;
-	size_t	i;
-	size_t	x;
+	char			*str;
+	char			*ptrs;
+	unsigned int	len_s;
+	unsigned int	size;
 
-	if (!(s))
-		return (NULL);
-	new = (char *)malloc(sizeof(*s) * (len + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	x = 0;
-	while (s[i])
+	if (s)
 	{
-		if (i >= start && x < len)
+		len_s = ft_strlen((char *)s);
+		size = len_s - start;
+		if (len_s <= start)
 		{
-			new[x] = s[i];
-			x++;
+			len = 0;
+			start = len_s;
 		}
-		i++;
+		if (len > size)
+			len = size;
+		str = (char *) malloc(len * sizeof(char) + 1);
+		if (str)
+		{
+			ptrs = (char *) s + start;
+			ft_strlcpy(str, ptrs, len + 1);
+			return (str);
+		}
 	}
-	new[x] = '\0';
-	return (new);
+	return (NULL);
 }

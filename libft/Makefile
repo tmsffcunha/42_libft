@@ -6,7 +6,7 @@
 #    By: tfelguei <tfelguei.students.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 18:47:14 by tfelguei          #+#    #+#              #
-#    Updated: 2024/05/08 19:15:11 by tfelguei         ###   ########.fr        #
+#    Updated: 2024/05/21 16:44:24 by tfelguei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,17 +30,16 @@ CFLAGS = -Wextra -Wall -Werror -g
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME):
+	$(CC) $(CFLAGS) -c $(SRCS)
 	ar rcs $(NAME) $(OBJS)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-	
-bonus: $(OBJS_BONUS)
+bonus: $(NAME)
+	$(CC) $(CFLAGS) -c $(SRCS_BONUS)
 	ar rcs $(NAME) $(OBJS_BONUS)
 
 clean:	
-	rm -f *.o
+	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean	
 	rm -f $(NAME)

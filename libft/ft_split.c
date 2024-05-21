@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfelguei <tfelguei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfelguei <tfelguei.students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:31:24 by tfelguei          #+#    #+#             */
-/*   Updated: 2024/05/09 18:51:39 by tfelguei         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:13:52 by tfelguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ static char	*spliter(char *s, char c)
 	else
 		size = ft_strlen((char *)s) - ft_strlen(swap);
 	word = (char *)malloc(size * sizeof(char) + 1);
+	word[size] = '\0';
 	if (word)
 	{
-		ft_strlcpy(word, (char *)s, size + 1);
+		ft_strlcpy(word, (char *)s, size);
 		return (word);
 	}
-	free(word);
 	return (NULL);
 }
 
@@ -88,4 +88,9 @@ char	**ft_split(char const *s, char c)
 		free(words[i]);
 	free(words);
 	return (NULL);
+}
+
+int main()
+{
+	ft_split("ola bom dia a",' ');
 }

@@ -6,7 +6,7 @@
 /*   By: tfelguei <tfelguei.students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:01:58 by tfelguei          #+#    #+#             */
-/*   Updated: 2024/05/09 19:28:25 by tfelguei         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:18:25 by tfelguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	while (lst)
 	{
 		new_con = f(lst->content);
-		new_lst = ft_lstnew(new_con);
+		new_node = ft_lstnew(new_con);
 		if (!new_node || !new_con)
 		{
-			del(new_con);
 			ft_lstclear(&new_lst, del);
+			del(new_con);
 			return (NULL);
 		}
 		ft_lstadd_back(&new_lst, new_node);
 		lst = lst->next;
 	}
+	return (new_lst);
 }
