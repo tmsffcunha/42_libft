@@ -6,91 +6,87 @@
 /*   By: tfelguei <tfelguei.students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:31:24 by tfelguei          #+#    #+#             */
-/*   Updated: 2024/05/21 18:13:52 by tfelguei         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:21:50 by tfelguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static unsigned int	count(char const *s, char c)
+static unsigned int	count_words(const char *s, char c)
 {
-	int	i;
+	unsigned int	count;
+	int				in_word;
 
-	i = 0;
+	count = 0;
+	in_word = 0;
 	while (*s)
 	{
-		if (*s != c && *s)
-			i++;
-		while (*s && *s != c)
-			s++;
-		while (*s == c && *s)
-			s++;
+		if (*s != c && !in_word)
+		{
+			in_word = 1;
+			count++;
+		}
+		else if (*s == c)
+		{
+			in_word = 0;
+		}
+		s++;
 	}
-	return (i);
+	return (count);
 }
 
-static char	*whitespc(char *s, char c)
+static const char	*skip_delimiters(const char *s, char c)
 {
-	if (s == NULL)
-		return (s);
 	while (*s == c)
 		s++;
 	return (s);
 }
 
-static char	*spliter(char *s, char c)
+static char	*get_next_word(const char **s, char c)
 {
-	char			*word;
-	char			*swap;
-	unsigned int	size;
+	const char	*start;
+	const char	*end;
+	char		*word;
+	size_t		length;
 
-	s = whitespc((char *)s, c);
-	swap = (char *)s;
-	swap = ft_strchr((char *)s, c);
-	if (swap == NULL)
-		size = ft_strlen((char *)s);
-	else
-		size = ft_strlen((char *)s) - ft_strlen(swap);
-	word = (char *)malloc(size * sizeof(char) + 1);
-	word[size] = '\0';
+	*s = skip_delimiters(*s, c);
+	start = *s;
+	end = ft_strchr((char *)start, c);
+	if (end == NULL)
+		end = start + ft_strlen(start);
+	length = end - start;
+	word = (char *)malloc((length + 1) * sizeof(char));
 	if (word)
-	{
-		ft_strlcpy(word, (char *)s, size);
-		return (word);
-	}
-	return (NULL);
+		ft_strlcpy(word, start, length + 1);
+	*s = end;
+	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(const char *s, char c)
 {
-	char	**words;
-	char	word_count;
-	int		i;
+	char			**words;
+	unsigned int	word_count;
+	unsigned int	i;
 
-	word_count = count((char *)s, c);
+	if (!s)
+		return (NULL);
+	word_count = count_words(s, c);
 	words = (char **)malloc((word_count + 1) * sizeof(char *));
+	if (!words)
+		return (NULL);
 	i = 0;
-	if (words)
+	while (i < word_count)
 	{
-		while (word_count > 0)
+		words[i] = get_next_word(&s, c);
+		if (!words[i])
 		{
-			words[i] = spliter((char *)s, c);
-			if (!words[i])
-				break ;
-			s = whitespc((char *)s, c) + ft_strlen(words[i]);
-			i++;
-			word_count--;
+			while (i > 0)
+				free(words[--i]);
+			free(words);
+			return (NULL);
 		}
-		words[i] = NULL;
-		return (words);
+		i++;
 	}
-	while (i--)
-		free(words[i]);
-	free(words);
-	return (NULL);
-}
-
-int main()
-{
-	ft_split("ola bom dia a",' ');
+	words[i] = NULL;
+	return (words);
 }
